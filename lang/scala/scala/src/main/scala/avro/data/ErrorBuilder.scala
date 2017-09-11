@@ -11,9 +11,9 @@
   *
   * Unless required by applicable law or agreed to in writing, software
   * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-  * implied.  See the License for the specific language governing
-  * permissions and limitations under the License.
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
   *//**
   * Licensed to the Apache Software Foundation (ASF) under one
   * or more contributor license agreements.  See the NOTICE file
@@ -27,36 +27,35 @@
   *
   * Unless required by applicable law or agreed to in writing, software
   * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-  * implied.  See the License for the specific language governing
-  * permissions and limitations under the License.
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
   */
-package avro
+package avro.data
 
-/**
-  * <p>
-  * A {@link SchemaValidator} for validating the provided schema against all
-  * schemas in the Iterable in {@link #validate(Schema, Iterable)}.
-  * </p>
-  * <p>
-  * Uses the {@link SchemaValidationStrategy} provided in the constructor to
-  * validate the {@link Schema} against each Schema in the Iterable, in Iterator
-  * order, via {@link SchemaValidationStrategy#validate(Schema, Schema)}.
-  * </p>
-  */
-final class ValidateAll(val strategy: SchemaValidationStrategy)
-  extends SchemaValidator {
-  @throws[SchemaValidationException]
-  def validate(
-    toValidate: Schema,
-    schemasInOrder: Iterable[Schema]
-  ): Unit = {
-    val schemas = schemasInOrder.iterator
-    while ( {
-      schemas.hasNext
-    }) {
-      val existing = schemas.next
-      strategy.validate(toValidate, existing)
-    }
-  }
+/** Interface for error builders */
+trait ErrorBuilder[T] extends RecordBuilder[T] {
+  /** Gets the value */
+    def getValue: Any
+
+  /** Sets the value */
+  def setValue(value: Any): ErrorBuilder[T]
+
+  /** Checks whether the value has been set */
+  def hasValue: Boolean
+
+  /** Clears the value */
+  def clearValue: ErrorBuilder[T]
+
+  /** Gets the error cause */
+  def getCause: Throwable
+
+  /** Sets the error cause */
+  def setCause(cause: Throwable): ErrorBuilder[T]
+
+  /** Checks whether the cause has been set */
+  def hasCause: Boolean
+
+  /** Clears the cause */
+  def clearCause: ErrorBuilder[T]
 }

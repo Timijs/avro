@@ -119,7 +119,7 @@ public class SchemaCompatibility {
    * @return the writer field, if any does correspond, or None.
    */
   public static Field lookupWriterField(final Schema writerSchema, final Field readerField) {
-    assert (writerSchema.getType() == Type.RECORD);
+    assert (writerSchema.getT() == Type.RECORD);
     final List<Field> writerFields = new ArrayList<Field>();
     final Field direct = writerSchema.getField(readerField.name());
     if (direct != null) {
@@ -261,8 +261,8 @@ public class SchemaCompatibility {
       assert (reader != null);
       assert (writer != null);
 
-      if (reader.getType() == writer.getType()) {
-        switch (reader.getType()) {
+      if (reader.getT() == writer.getT()) {
+        switch (reader.getT()) {
           case NULL:
           case BOOLEAN:
           case INT:
@@ -343,7 +343,7 @@ public class SchemaCompatibility {
           }
 
           default: {
-            throw new AvroRuntimeException("Unknown schema type: " + reader.getType());
+            throw new AvroRuntimeException("Unknown schema type: " + reader.getT());
           }
         }
 
@@ -351,7 +351,7 @@ public class SchemaCompatibility {
         // Reader and writer have different schema types:
 
         // Reader compatible with all branches of a writer union is compatible
-        if (writer.getType() == Schema.Type.UNION) {
+        if (writer.getT() == Schema.Type.UNION) {
           for (Schema s : writer.getTypes()) {
             SchemaCompatibilityType compatibility = getCompatibility(reader, s);
             if (compatibility == SchemaCompatibilityType.INCOMPATIBLE) {
@@ -361,36 +361,36 @@ public class SchemaCompatibility {
           return SchemaCompatibilityType.COMPATIBLE;
         }
 
-        switch (reader.getType()) {
+        switch (reader.getT()) {
           case NULL: return SchemaCompatibilityType.INCOMPATIBLE;
           case BOOLEAN: return SchemaCompatibilityType.INCOMPATIBLE;
           case INT: return SchemaCompatibilityType.INCOMPATIBLE;
           case LONG: {
-            return (writer.getType() == Type.INT)
+            return (writer.getT() == Type.INT)
                 ? SchemaCompatibilityType.COMPATIBLE
                 : SchemaCompatibilityType.INCOMPATIBLE;
           }
           case FLOAT: {
-            return ((writer.getType() == Type.INT)
-                || (writer.getType() == Type.LONG))
+            return ((writer.getT() == Type.INT)
+                || (writer.getT() == Type.LONG))
                 ? SchemaCompatibilityType.COMPATIBLE
                 : SchemaCompatibilityType.INCOMPATIBLE;
 
           }
           case DOUBLE: {
-            return ((writer.getType() == Type.INT)
-                || (writer.getType() == Type.LONG)
-                || (writer.getType() == Type.FLOAT))
+            return ((writer.getT() == Type.INT)
+                || (writer.getT() == Type.LONG)
+                || (writer.getT() == Type.FLOAT))
                 ? SchemaCompatibilityType.COMPATIBLE
                 : SchemaCompatibilityType.INCOMPATIBLE;
           }
           case BYTES: {
-            return (writer.getType() == Type.STRING)
+            return (writer.getT() == Type.STRING)
                       ? SchemaCompatibilityType.COMPATIBLE
                       : SchemaCompatibilityType.INCOMPATIBLE;
                 }
           case STRING: {
-            return (writer.getType() == Type.BYTES)
+            return (writer.getT() == Type.BYTES)
                   ? SchemaCompatibilityType.COMPATIBLE
                   : SchemaCompatibilityType.INCOMPATIBLE;
             }
@@ -411,7 +411,7 @@ public class SchemaCompatibility {
           }
 
           default: {
-            throw new AvroRuntimeException("Unknown schema type: " + reader.getType());
+            throw new AvroRuntimeException("Unknown schema type: " + reader.getT());
           }
         }
       }

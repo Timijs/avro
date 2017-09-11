@@ -152,7 +152,7 @@ public class Conversions {
     }
 
     try {
-      switch (schema.getType()) {
+      switch (schema.getT()) {
         case RECORD:  return conversion.fromRecord((IndexedRecord) datum, schema, type);
         case ENUM:    return conversion.fromEnumSymbol((GenericEnumSymbol) datum, schema, type);
         case ARRAY:   return conversion.fromArray((Collection) datum, schema, type);
@@ -201,7 +201,7 @@ public class Conversions {
 
     try {
       Class<T> fromClass = conversion.getConvertedType();
-      switch (schema.getType()) {
+      switch (schema.getT()) {
         case RECORD:
           return conversion.toRecord(fromClass.cast(datum), schema, type);
         case ENUM:

@@ -33,7 +33,23 @@
   */
 package avro
 
-/** Thrown when an illegal type is used. */
+class AvroRuntimeException extends RuntimeException {
+  def this(cause: Throwable) {
+    this()
+    new RuntimeException(cause)
+  }
+
+  def this(message: String) {
+    this()
+    new RuntimeException(message)
+  }
+
+  def this(message: String, cause: Throwable) {
+    this()
+    new RuntimeException(message, cause)
+  }
+}
+
 class AvroTypeException extends AvroRuntimeException {
   def this(message: String) {
     this()

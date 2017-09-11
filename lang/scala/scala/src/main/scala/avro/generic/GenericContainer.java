@@ -17,7 +17,7 @@
  */
 package avro.generic;
 
-import org.apache.avro.Schema;
+import avro.Schema;
 
 /** Contains data of other types. */
 public interface GenericContainer {

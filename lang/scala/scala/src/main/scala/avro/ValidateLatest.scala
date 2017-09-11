@@ -33,8 +33,6 @@
   */
 package avro
 
-import java.util
-
 /**
   * <p>
   * A {@link SchemaValidator} for validating the provided schema against the

@@ -106,7 +106,7 @@ public class SchemaNormalization {
   private static Appendable build(Map<String,String> env, Schema s,
                                   Appendable o) throws IOException {
     boolean firstTime = true;
-    Schema.Type st = s.getType();
+    Schema.Type st = s.getT();
     switch (st) {
     default: // boolean, bytes, double, float, int, long, null, string
       return o.append('"').append(st.getName()).append('"');

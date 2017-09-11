@@ -48,7 +48,7 @@ class ValidateCanBeRead extends SchemaValidationStrategy {
     * if the second schema cannot read data written by the first.
     */
     @throws[SchemaValidationException]
-    override def validate(
+    def validate(
       toValidate: Schema,
       existing: Schema
     ): Unit = ValidateMutualRead.canRead(toValidate, existing)

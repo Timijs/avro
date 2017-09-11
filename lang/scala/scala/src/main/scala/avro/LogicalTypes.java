@@ -206,8 +206,8 @@ public class LogicalTypes {
     public void validate(Schema schema) {
       super.validate(schema);
       // validate the type
-      if (schema.getType() != Schema.Type.FIXED &&
-          schema.getType() != Schema.Type.BYTES) {
+      if (schema.getT() != Schema.Type.FIXED &&
+          schema.getT() != Schema.Type.BYTES) {
         throw new IllegalArgumentException(
             "Logical type decimal must be backed by fixed or bytes");
       }
@@ -229,10 +229,10 @@ public class LogicalTypes {
     }
 
     private long maxPrecision(Schema schema) {
-      if (schema.getType() == Schema.Type.BYTES) {
+      if (schema.getT() == Schema.Type.BYTES) {
         // not bounded
         return Integer.MAX_VALUE;
-      } else if (schema.getType() == Schema.Type.FIXED) {
+      } else if (schema.getT() == Schema.Type.FIXED) {
         int size = schema.getFixedSize();
         return Math.round(          // convert double to long
             Math.floor(Math.log10(  // number of base-10 digits
@@ -287,7 +287,7 @@ public class LogicalTypes {
     @Override
     public void validate(Schema schema) {
       super.validate(schema);
-      if (schema.getType() != Schema.Type.INT) {
+      if (schema.getT() != Schema.Type.INT) {
         throw new IllegalArgumentException(
             "Date can only be used with an underlying int type");
       }
@@ -303,7 +303,7 @@ public class LogicalTypes {
     @Override
     public void validate(Schema schema) {
       super.validate(schema);
-      if (schema.getType() != Schema.Type.INT) {
+      if (schema.getT() != Schema.Type.INT) {
         throw new IllegalArgumentException(
             "Time (millis) can only be used with an underlying int type");
       }
@@ -319,7 +319,7 @@ public class LogicalTypes {
     @Override
     public void validate(Schema schema) {
       super.validate(schema);
-      if (schema.getType() != Schema.Type.LONG) {
+      if (schema.getT() != Schema.Type.LONG) {
         throw new IllegalArgumentException(
             "Time (micros) can only be used with an underlying long type");
       }
@@ -335,7 +335,7 @@ public class LogicalTypes {
     @Override
     public void validate(Schema schema) {
       super.validate(schema);
-      if (schema.getType() != Schema.Type.LONG) {
+      if (schema.getT() != Schema.Type.LONG) {
         throw new IllegalArgumentException(
             "Timestamp (millis) can only be used with an underlying long type");
       }
@@ -351,7 +351,7 @@ public class LogicalTypes {
     @Override
     public void validate(Schema schema) {
       super.validate(schema);
-      if (schema.getType() != Schema.Type.LONG) {
+      if (schema.getT() != Schema.Type.LONG) {
         throw new IllegalArgumentException(
             "Timestamp (micros) can only be used with an underlying long type");
       }

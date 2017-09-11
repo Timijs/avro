@@ -46,9 +46,9 @@ trait SchemaValidationStrategy {
     *
     * @throws SchemaValidationException if the schemas are not compatible.
     */
-    @throws[SchemaValidationException]
-    def validate(
-                  toValidate: Schema,
-                  existing: Schema
-                ): Unit
+  @throws[SchemaValidationException]
+  def validate(
+    toValidate: Schema,
+    existing: Schema
+  ): Unit
 }
